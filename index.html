@@ -1,0 +1,494 @@
+<title>Spotly</title>
+<meta name="description" content="Local Instagram creators for local businesses in Kandivali, Borivali and Malad. Book a creator near your shop, pay only when the reel goes live.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#FBF8F5; --ink:#17120F; --ink-2:#4A403A; --muted:#8A7F78;
+    --line:#E6DCD3; --line-2:#CDBCAE; --brand:#E24E1B; --brand-deep:#B93B12;
+    --teal:#0F4C4A;
+    --f:"Outfit","Helvetica Neue",Arial,sans-serif;
+    --m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --pad:clamp(1.15rem,5vw,4rem);
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--f);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad);}
+  a{color:inherit;}
+  h1,h2,h3{margin:0;letter-spacing:-0.035em;line-height:1.0;text-wrap:balance;}
+  p{margin:0;}
+  .mono{font-family:var(--m);}
+  .eyebrow{font-family:var(--m);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);}
+
+  /* ---------- logo ---------- */
+  .logo{display:inline-flex;align-items:center;font-weight:600;letter-spacing:-0.045em;line-height:1;}
+  .logo svg{display:block;width:.60em;height:.60em;margin:0 .04em;}
+  .logo .ring{fill:none;stroke:currentColor;}
+  .logo .dot{fill:currentColor;}
+
+  /* ---------- nav ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(251,248,245,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0;}
+  .nav-links{display:none;gap:1.9rem;font-size:.92rem;font-weight:500;}
+  .nav-links a{text-decoration:none;color:var(--ink-2);}
+  .nav-links a:hover{color:var(--brand);}
+  @media(min-width:860px){.nav-links{display:flex;}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--f);font-weight:600;font-size:.95rem;
+       padding:.72rem 1.3rem;border-radius:999px;text-decoration:none;border:1.5px solid transparent;transition:transform .12s ease,background .15s ease;}
+  .btn:active{transform:translateY(1px);}
+  .btn-p{background:var(--brand);color:#fff;}
+  .btn-p:hover{background:var(--brand-deep);}
+  .btn-o{border-color:var(--ink);color:var(--ink);}
+  .btn-o:hover{background:var(--ink);color:var(--paper);}
+  .btn-w{background:#fff;color:var(--ink);}
+  .btn-ghost{border-color:rgba(255,255,255,.45);color:#fff;}
+  .btn-ghost:hover{background:#fff;color:var(--ink);}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;padding:clamp(3rem,9vw,6.5rem) 0 clamp(3rem,8vw,5rem);}
+  .hero-grid{display:grid;gap:clamp(2.4rem,6vw,4rem);align-items:center;}
+  @media(min-width:960px){.hero-grid{grid-template-columns:1.05fr .95fr;}}
+  h1{font-weight:700;font-size:clamp(2.5rem,6.2vw,4.5rem);}
+  h1 .em{color:var(--brand);}
+  .lede{margin-top:1.5rem;font-size:clamp(1.05rem,2vw,1.28rem);color:var(--ink-2);max-width:46ch;}
+  .hero-cta{margin-top:2.2rem;display:flex;flex-wrap:wrap;gap:.75rem;}
+  .hero-note{margin-top:1.3rem;font-family:var(--m);font-size:.76rem;color:var(--muted);}
+
+  /* radius diagram */
+  .radar{position:relative;aspect-ratio:1;max-width:520px;margin:0 auto;width:100%;}
+  .radar svg{width:100%;height:100%;display:block;}
+  .r-ring{fill:none;stroke:var(--line-2);stroke-width:1.2;}
+  .r-live{fill:none;stroke:var(--brand);stroke-width:2.5;}
+  .r-fill{fill:var(--brand);opacity:.06;}
+  .r-dot{fill:var(--ink);}
+  .r-dot.on{fill:var(--brand);}
+  .r-shop{fill:var(--brand);}
+  .r-lab{font-family:var(--m);font-size:13px;fill:var(--muted);}
+  .radar-ui{margin-top:1.2rem;display:flex;align-items:center;gap:1rem;}
+  .radar-ui input{flex:1;accent-color:var(--brand);height:4px;}
+  .radar-out{font-family:var(--m);font-size:.82rem;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums;}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(3.2rem,8vw,5.5rem) 0;}
+  .sec-head{max-width:40ch;margin-bottom:clamp(2rem,4vw,3rem);}
+  .sec-head h2{font-weight:700;font-size:clamp(1.9rem,4.4vw,3rem);margin-top:.6rem;}
+  .sec-head p{margin-top:1rem;color:var(--ink-2);font-size:1.05rem;}
+
+  /* split */
+  .split{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;}
+  @media(min-width:860px){.split{grid-template-columns:1fr 1fr;}}
+  .panel{padding:clamp(1.8rem,4vw,3rem);display:flex;flex-direction:column;gap:1.1rem;}
+  .panel.dark{background:var(--ink);color:#fff;}
+  .panel.light{background:#fff;}
+  .panel h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);}
+  .panel ul{margin:0;padding-left:1.15rem;display:flex;flex-direction:column;gap:.55rem;}
+  .panel.dark ul{color:rgba(255,255,255,.82);}
+  .panel.light ul{color:var(--ink-2);}
+  .panel .btn{align-self:flex-start;margin-top:.5rem;}
+  .panel .kicker{font-family:var(--m);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;}
+  .panel.dark .kicker{color:var(--brand);}
+  .panel.light .kicker{color:var(--brand);}
+
+  /* steps */
+  .steps{display:grid;gap:1.6rem;}
+  @media(min-width:780px){.steps{grid-template-columns:repeat(3,1fr);gap:2.4rem;}}
+  .step{display:flex;flex-direction:column;gap:.7rem;}
+  .step .n{font-family:var(--m);font-size:.78rem;color:var(--brand);letter-spacing:.1em;}
+  .step h3{font-weight:600;font-size:1.28rem;letter-spacing:-0.02em;}
+  .step p{color:var(--ink-2);font-size:.97rem;}
+  .step .rule{height:2px;background:var(--line);}
+  .step .rule i{display:block;height:2px;width:34%;background:var(--brand);}
+
+  /* pricing */
+  .cards{display:grid;gap:1.1rem;}
+  @media(min-width:820px){.cards{grid-template-columns:repeat(3,1fr);}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.7rem;display:flex;flex-direction:column;gap:.9rem;}
+  .card.feat{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .card .name{font-family:var(--m);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);}
+  .card .price{font-weight:800;font-size:2.9rem;letter-spacing:-0.045em;line-height:1;}
+  .card .who{font-size:.94rem;color:var(--ink-2);}
+  .card.feat .who{color:rgba(255,255,255,.72);}
+  .card ul{margin:.3rem 0 0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.45rem;font-size:.94rem;color:var(--ink-2);}
+  .card.feat ul{color:rgba(255,255,255,.82);}
+  .card .btn{margin-top:auto;align-self:stretch;}
+  .tagline{margin-top:1.2rem;font-family:var(--m);font-size:.78rem;color:var(--muted);}
+
+  /* business-type picker */
+  .picker{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.6rem;}
+  .chip{font-family:var(--f);font-weight:500;font-size:.95rem;padding:.6rem 1.15rem;border-radius:999px;
+        border:1.5px solid var(--line-2);background:#fff;color:var(--ink-2);cursor:pointer;transition:all .14s ease;}
+  .chip:hover{border-color:var(--brand);color:var(--brand);}
+  .chip[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .playbook{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(1.5rem,3.5vw,2.4rem);
+            display:flex;flex-direction:column;gap:1.5rem;}
+  .pb-row{display:grid;gap:.45rem;}
+  @media(min-width:720px){.pb-row{grid-template-columns:150px minmax(0,1fr);gap:1.6rem;align-items:start;}}
+  .pb-lab{font-family:var(--m);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--brand);padding-top:.35rem;}
+  .pb-row p{font-size:1.08rem;color:var(--ink);max-width:56ch;letter-spacing:-0.01em;}
+  .playbook .btn{align-self:flex-start;margin-top:.2rem;}
+  .incl{margin-top:2.4rem;}
+  .incl-head{font-family:var(--m);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+  .incl-grid{display:grid;gap:1.4rem;margin-top:1.2rem;}
+  @media(min-width:680px){.incl-grid{grid-template-columns:repeat(2,1fr);gap:1.6rem 2.6rem;}}
+  @media(min-width:1000px){.incl-grid{grid-template-columns:repeat(4,1fr);}}
+  .incl-i{display:flex;flex-direction:column;gap:.5rem;border-top:2px solid var(--ink);padding-top:.8rem;}
+  .incl-n{font-family:var(--m);font-size:.72rem;color:var(--brand);}
+  .incl-i p{font-size:.95rem;color:var(--ink-2);}
+
+  /* trust band */
+  .band{background:var(--ink);color:#fff;border-radius:24px;padding:clamp(2rem,5vw,3.6rem);display:grid;gap:2.4rem;align-items:center;}
+  @media(min-width:880px){.band{grid-template-columns:.9fr 1.1fr;gap:3.5rem;}}
+  .band .big{font-weight:800;font-size:clamp(4.5rem,13vw,8rem);line-height:.84;letter-spacing:-0.05em;color:var(--brand);}
+  .band .cap{margin-top:1rem;font-size:1.1rem;color:rgba(255,255,255,.85);max-width:24ch;}
+  .band h3{font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);}
+  .band p{margin-top:1rem;color:rgba(255,255,255,.78);}
+  .band .src{margin-top:1.4rem;font-family:var(--m);font-size:.72rem;color:rgba(255,255,255,.45);}
+
+  /* areas */
+  .areas{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem;}
+  .pin{font-family:var(--m);font-size:.82rem;padding:.5rem .95rem;border:1px solid var(--line-2);border-radius:999px;color:var(--ink-2);background:#fff;}
+  .pin.next{border-style:dashed;color:var(--muted);background:transparent;}
+
+  /* faq */
+  details{border-bottom:1px solid var(--line);padding:1.15rem 0;}
+  details summary{cursor:pointer;font-weight:600;font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:1rem;letter-spacing:-0.015em;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";color:var(--brand);font-weight:600;font-size:1.4rem;line-height:1;}
+  details[open] summary::after{content:"–";}
+  details p{margin-top:.8rem;color:var(--ink-2);max-width:62ch;font-size:.98rem;}
+
+  /* final cta */
+  .final{background:var(--brand);color:#fff;border-radius:24px;padding:clamp(2.2rem,6vw,4.2rem);text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.4rem;}
+  .final h2{font-weight:700;font-size:clamp(2rem,5vw,3.2rem);color:#fff;}
+  .final p{color:rgba(255,255,255,.88);max-width:44ch;}
+  .final .row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;}
+
+  footer{border-top:1px solid var(--line);padding:2.4rem 0 3.2rem;margin-top:clamp(3rem,7vw,5rem);}
+  .foot{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:flex-start;}
+  .foot .small{font-family:var(--m);font-size:.74rem;color:var(--muted);line-height:1.8;}
+  .foot a{color:var(--ink-2);text-decoration:none;}
+  .foot a:hover{color:var(--brand);}
+  :focus-visible{outline:2px solid var(--brand);outline-offset:3px;}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" style="font-size:1.6rem;text-decoration:none;color:var(--ink)">sp<svg viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="33" stroke-width="20" style="stroke:var(--brand)"/><circle class="dot" cx="50" cy="50" r="11" style="fill:var(--brand)"/></svg>tly</a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#you">For your place</a>
+      <a href="#creators">For creators</a>
+      <a href="#areas">Areas</a>
+    </div>
+    <a class="btn btn-p" href="https://wa.me/919324664169?text=Hi%20Spotly%2C%20I%27d%20like%20to%20book%20local%20creators%20for%20my%20shop." target="_blank" rel="noopener">WhatsApp us</a>
+  </div>
+</nav>
+
+<div id="top" class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Kandivali · Borivali · Malad</span>
+      <h1>The creators your customers already follow are <span class="em">three kilometres away.</span></h1>
+      <p class="lede">Spotly finds Instagram creators near your shop, books them for you, and holds your money until the reel is live. You'll know the exact price before anything starts.</p>
+      <div class="hero-cta">
+        <a class="btn btn-p" href="https://wa.me/919324664169?text=Hi%20Spotly%2C%20I%20run%20a%20business%20in%20Kandivali%20and%20want%20to%20book%20local%20creators." target="_blank" rel="noopener">Book creators for my shop</a>
+        <a class="btn btn-o" href="#creators">I'm a creator</a>
+      </div>
+      <p class="hero-note">No contract. No retainer. Pay per campaign.</p>
+    </div>
+
+    <div>
+      <div class="radar">
+        <svg viewBox="0 0 400 400" role="img" aria-label="Diagram of a search radius around a shop, showing how many creators fall inside as the radius grows.">
+          <circle class="r-ring" cx="200" cy="200" r="60"/>
+          <circle class="r-ring" cx="200" cy="200" r="105"/>
+          <circle class="r-ring" cx="200" cy="200" r="150"/>
+          <circle class="r-ring" cx="200" cy="200" r="190"/>
+          <circle id="rfill" class="r-fill" cx="200" cy="200" r="105"/>
+          <circle id="rlive" class="r-live" cx="200" cy="200" r="105"/>
+          <g id="dots"></g>
+          <circle class="r-shop" cx="200" cy="200" r="9"/>
+          <text class="r-lab" x="200" y="228" text-anchor="middle">your shop</text>
+        </svg>
+      </div>
+      <div class="radar-ui">
+        <span class="mono" style="font-size:.74rem;color:var(--muted)">1 km</span>
+        <input id="rad" type="range" min="1" max="10" step="1" value="3" aria-label="Search radius in kilometres">
+        <span class="mono" style="font-size:.74rem;color:var(--muted)">10 km</span>
+      </div>
+      <p class="radar-out" id="rout"></p>
+    </div>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps, ten days, one reel.</h2>
+      <p>You never have to find a creator, agree a price, or chase anyone for the file.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="rule"><i></i></div>
+        <span class="n">01</span>
+        <h3>Tell us your area and budget</h3>
+        <p>One WhatsApp message. We shortlist creators whose followers actually live near your shop — not just creators who live near it.</p>
+      </div>
+      <div class="step">
+        <div class="rule"><i style="width:67%"></i></div>
+        <span class="n">02</span>
+        <h3>Your money is held, not sent</h3>
+        <p>You pay into a held transfer. The creator knows the money is real, you know it isn't gone. Nobody is taking a risk on a stranger.</p>
+      </div>
+      <div class="step">
+        <div class="rule"><i style="width:100%"></i></div>
+        <span class="n">03</span>
+        <h3>Reel goes live, you get the numbers</h3>
+        <p>Views, saves, profile visits, and how many people walked in with the creator's code. The creator is paid within 48 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="creators" style="padding-top:0">
+  <div class="wrap">
+    <div class="split">
+      <div class="panel light">
+        <span class="kicker">For shop owners</span>
+        <h3>Stop paying for ads nobody trusts.</h3>
+        <ul>
+          <li>Creators whose audience is in your pincode, not in Delhi</li>
+          <li>One fixed price per campaign — no agency retainer</li>
+          <li>A unique code per creator, so you can count the walk-ins</li>
+          <li>GST invoice and TDS-ready paperwork for your books</li>
+        </ul>
+        <a class="btn btn-p" href="https://wa.me/919324664169?text=Hi%20Spotly%2C%20I%20want%20to%20book%20local%20creators%20for%20my%20shop." target="_blank" rel="noopener">Book a creator</a>
+      </div>
+      <div class="panel dark">
+        <span class="kicker">For creators</span>
+        <h3>Paid local work. Money in 48 hours.</h3>
+        <ul>
+          <li>Shoots near you — no two-hour commute for a ₹3,000 reel</li>
+          <li>The money is held before you shoot, so it's already there</li>
+          <li>Paid within 48 hours of your post going live. Every time.</li>
+          <li>No chasing, no "next week bhai", no ghosting</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://www.instagram.com/spotlynow/" target="_blank" rel="noopener">Join on Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="you">
+  <div class="wrap">
+    <div class="sec-head" style="max-width:46ch">
+      <span class="eyebrow">For your place</span>
+      <h2>What would this actually look like for you?</h2>
+      <p>Pick what you run. A café campaign and a dental clinic campaign look nothing alike — different creators, different shoot, different thing worth counting.</p>
+    </div>
+
+    <div class="picker" role="tablist" aria-label="Choose your business type">
+      <button class="chip" role="tab" data-k="cafe" aria-selected="true">Café / Restaurant</button>
+      <button class="chip" role="tab" data-k="gym" aria-selected="false">Gym / Fitness</button>
+      <button class="chip" role="tab" data-k="salon" aria-selected="false">Salon / Spa</button>
+      <button class="chip" role="tab" data-k="clinic" aria-selected="false">Clinic / Dentist</button>
+      <button class="chip" role="tab" data-k="store" aria-selected="false">Boutique / Store</button>
+      <button class="chip" role="tab" data-k="class" aria-selected="false">Coaching class</button>
+    </div>
+
+    <div class="playbook" id="pb">
+      <div class="pb-row">
+        <span class="pb-lab">We'd pick</span>
+        <p id="pb1"></p>
+      </div>
+      <div class="pb-row">
+        <span class="pb-lab">They'd shoot</span>
+        <p id="pb2"></p>
+      </div>
+      <div class="pb-row">
+        <span class="pb-lab">You'd count</span>
+        <p id="pb3"></p>
+      </div>
+      <a class="btn btn-p" id="pbcta" href="#" target="_blank" rel="noopener">Get three creators for this</a>
+    </div>
+
+    <div class="incl">
+      <span class="incl-head">Included in every campaign, whatever you run</span>
+      <div class="incl-grid">
+        <div class="incl-i"><span class="incl-n">01</span><p>Creators shortlisted for you — you approve before anyone is booked</p></div>
+        <div class="incl-i"><span class="incl-n">02</span><p>The brief written for you, and the content approved before it's posted</p></div>
+        <div class="incl-i"><span class="incl-n">03</span><p>A unique promo code per creator, so walk-ins are countable</p></div>
+        <div class="incl-i"><span class="incl-n">04</span><p>A one-page results report, plus a GST invoice for your books</p></div>
+      </div>
+    </div>
+
+    <p class="tagline">Restaurant or salon? Barter collabs — food or service in place of a fee — are coordinated too, with the value properly documented for your books.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <div class="big">58%</div>
+        <p class="cap">of Indian creators have been paid late — or never paid at all.</p>
+      </div>
+      <div>
+        <h3>That's the problem we actually solve.</h3>
+        <p>Finding a creator is easy. Trusting one with ₹5,000 before you've met them is not — and neither is shooting a reel for a shop that might ghost you.</p>
+        <p>So Spotly holds the money from the moment the campaign is confirmed, and releases it within 48 hours of the post going live. The business isn't paying a stranger in advance. The creator isn't working on a promise.</p>
+        <p class="src">Source: IdentityKit, India Creator Economy 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="areas">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Where we work</span>
+      <h2>We go deep in a few areas, not thin across Mumbai.</h2>
+      <p>A creator three kilometres away is worth more to your shop than a creator with ten times the followers in another suburb. So we build one area at a time.</p>
+    </div>
+    <div class="areas">
+      <span class="pin">Kandivali West · 400067</span>
+      <span class="pin">Borivali West · 400092</span>
+      <span class="pin">Malad West · 400064</span>
+      <span class="pin next">Goregaon — next</span>
+      <span class="pin next">Andheri — next</span>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Questions</span><h2>The things people ask first.</h2></div>
+    <details><summary>What if the creator doesn't deliver?</summary><p>Your money is held, not sent. If the agreed content never goes live, it comes back to you. We approve the content before it's posted, so you see it first.</p></details>
+    <details><summary>How is this different from just DMing a creator myself?</summary><p>You can, and some people do. What you don't get is their real rate rather than the stranger price, a record of whether they actually deliver, an escrow that protects you both, paperwork for your books, or a report at the end. DMing gets you a conversation. This gets you a campaign.</p></details>
+    <details><summary>How do you know their followers are near my shop?</summary><p>Creators connect their Instagram account to Spotly, so their follower numbers and audience-city breakdown come from Instagram directly rather than from a screenshot. We combine that with where they live, how far they travel, and where they actually shoot.</p></details>
+    <details><summary>I'm a creator with 4,000 followers. Am I too small?</summary><p>No — small local accounts are what most of our businesses want. A 4,000-follower account where the followers live in Kandivali is more useful to a Kandivali gym than a 40,000-follower account spread across India.</p></details>
+    <details><summary>Do you work outside these areas?</summary><p>Not yet, honestly. We'd rather be genuinely useful in three pincodes than useless across the city. Message us anyway — if there's demand in your area, it moves up the list.</p></details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final">
+      <h2>Your area's creators are a message away.</h2>
+      <p>Tell us what you sell and where you are. We'll come back with three creators and a price, usually the same day.</p>
+      <div class="row">
+        <a class="btn btn-w" href="https://wa.me/919324664169?text=Hi%20Spotly%2C%20I%27d%20like%20to%20book%20local%20creators." target="_blank" rel="noopener">WhatsApp us</a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/spotlynow/" target="_blank" rel="noopener">@spotlynow</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="logo" style="font-size:1.5rem;color:var(--ink)">sp<svg viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="33" stroke-width="20" style="stroke:var(--brand)"/><circle class="dot" cx="50" cy="50" r="11" style="fill:var(--brand)"/></svg>tly</span>
+      <p class="small" style="margin-top:.6rem">Local creators for local businesses.<br>A product of AP Labs · Mumbai</p>
+    </div>
+    <div class="small">
+      <a href="#how">How it works</a><br>
+      <a href="#pricing">Pricing</a><br>
+      <a href="#creators">For creators</a>
+    </div>
+    <div class="small">
+      <a href="https://www.instagram.com/spotlynow/" target="_blank" rel="noopener">@spotlynow</a><br>
+      <a href="https://wa.me/919324664169" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Illustrative radius diagram — abstract points, no real creator data.
+  var PTS = [
+    [248,142],[164,128],[292,236],[128,254],[214,286],[300,168],[112,176],[248,318],
+    [70,116],[330,300],[356,140],[60,308],[196,64],[338,84],[74,352],[286,368],[42,214],[362,240]
+  ];
+  var svgNS='http://www.w3.org/2000/svg';
+  var g=document.getElementById('dots');
+  var dots=PTS.map(function(p){
+    var c=document.createElementNS(svgNS,'circle');
+    c.setAttribute('cx',p[0]); c.setAttribute('cy',p[1]); c.setAttribute('r',5.5);
+    c.setAttribute('class','r-dot');
+    g.appendChild(c);
+    return {el:c, d:Math.hypot(p[0]-200,p[1]-200)};
+  });
+  var live=document.getElementById('rlive'), fill=document.getElementById('rfill');
+  var slider=document.getElementById('rad'), out=document.getElementById('rout');
+
+  function draw(){
+    var km=+slider.value;
+    var px=19*km;                       // 1 km ≈ 19px in this diagram
+    live.setAttribute('r',px); fill.setAttribute('r',px);
+    var n=0;
+    dots.forEach(function(d){
+      var inside=d.d<=px;
+      d.el.setAttribute('class','r-dot'+(inside?' on':''));
+      d.el.style.opacity = inside?1:.28;
+      if(inside) n++;
+    });
+    out.textContent='Within '+km+' km of your shop — '+n+' creator'+(n===1?'':'s')+' in this illustration.';
+  }
+  slider.addEventListener('input',draw);
+  draw();
+
+  // ---- business-type playbook ----
+  var PB = {
+    cafe:{
+      t:'a café',
+      a:'Food creators within three kilometres whose followers actually eat out in your area — not city-wide food pages.',
+      b:'A real visit. The dish that films best, the interior at the right time of day, and one clear line about the offer.',
+      c:'Saves and shares — people bookmarking it to come later — and how many walked in with the creator’s code.'
+    },
+    gym:{
+      t:'a gym',
+      a:'Fitness and lifestyle creators who already train nearby, so the recommendation reads as honest rather than paid.',
+      b:'A trial session. The equipment, the trainer, and what the floor actually looks like at peak hour.',
+      c:'Profile visits and DMs asking about membership, plus trial sign-ups against each creator’s code.'
+    },
+    salon:{
+      t:'a salon',
+      a:'Beauty and lifestyle creators in your pincode whose followers are the age group you actually serve.',
+      b:'A before and after. The service being done, the result in good light, and what that service costs.',
+      c:'Saves — people keeping it until they need it — and bookings that quote the code.'
+    },
+    clinic:{
+      t:'a clinic',
+      a:'Family and neighbourhood creators rather than beauty influencers. For a clinic, trust converts and reach does not.',
+      b:'A calm walkthrough. The space, the equipment, and what a first visit is actually like, without hard selling.',
+      c:'Profile visits and appointment calls. Slower than a café campaign, and each one worth far more.'
+    },
+    store:{
+      t:'a store',
+      a:'Fashion creators whose followers shop in your area and in your price range.',
+      b:'A try-on. Three outfits, what each costs, and exactly where you are — with the shop tagged.',
+      c:'Saves, story link taps, and walk-ins carrying the code.'
+    },
+    'class':{
+      t:'a coaching class',
+      a:'Student and education creators near your centre — often a current or recent student with a local following.',
+      b:'An honest walkthrough. The batch size, the faculty, and what a demo class is really like.',
+      c:'Enquiry calls and demo-class sign-ups against each creator’s code.'
+    }
+  };
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var p1=document.getElementById('pb1'),p2=document.getElementById('pb2'),p3=document.getElementById('pb3'),cta=document.getElementById('pbcta');
+  function setPB(k){
+    var d=PB[k];
+    chips.forEach(function(c){c.setAttribute('aria-selected', c.dataset.k===k ? 'true':'false');});
+    p1.textContent=d.a; p2.textContent=d.b; p3.textContent=d.c;
+    cta.href='https://wa.me/919324664169?text='+encodeURIComponent('Hi Spotly, I run '+d.t+' in Kandivali. What would a campaign look like for me?');
+  }
+  chips.forEach(function(c){ c.addEventListener('click',function(){ setPB(c.dataset.k); }); });
+  setPB('cafe');
+})();
+</script>
